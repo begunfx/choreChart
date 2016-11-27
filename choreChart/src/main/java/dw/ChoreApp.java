@@ -16,7 +16,7 @@ public class ChoreApp {
 		public Parent getParent(@PathParam("parentId") int parentId){
 			EntityManager em = emf.createEntityManager();
 			Parent p = em.find(Parent.class, parentId);
-			int countChildren = p.getChildren().size();  // force a retrieve of lazy relationship of children
+			int countChildren = p.getChildren().size(); // force a retrieve of lazy relationship of children
 			System.out.println(countChildren);
 			em.close();
 			p.print();
