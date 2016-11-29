@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Entity
 public class Child 
 {	
+	// just testing github setup - brian begun
 	// fields must be public or public getters/setters 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
