@@ -1,43 +1,41 @@
 package dw;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
 public class Chore {
 	
-	// must have public fields or public getters/setters 
-	@Id
-	private Integer choreId;
+   // must have public fields or public getters/setters 
+   @Id
+   private Integer choreId;
 
-	@Version
-	private Integer version;
+   @Version
+   private Integer version;
+
+   private String choreName = "";
+   private String choreDescription = "";
+   private Integer chorePayout;
+   private String dayOfWeek;
+   private boolean isRecurring;
+   private boolean isComplete;
+   private boolean isConfirmed;
 	
-	private String choreName = "";
-	private String choreDescription = "";
-	private Integer chorePayout;
-  private String dayOfWeek;
-  private boolean isRecurring;
-  private boolean isComplete;
-  private boolean isConfirmed;
+   // jpa Entity class must have a public no-arg constructor
 	
-	// jpa Entity class must have a public no-arg constructor
+   public Chore(){
+   }
 	
-	public Chore(){
-	}
-	
-	public Chore(String id, String choreName, String choreDescription, int chorePayout, 
+   public Chore(String id, String choreName, String choreDescription, int chorePayout, 
                 dayOfWeek, isRecurring, isComplete, isConfirmed){
-		choreId=id;
-		this.choreName=choreName;
-		this.choreDescrption=choreDescription;
-		this.chorePayout=chorePayout;
-		this.dayOfWeek=dayOfWeek;
-    this.isRecurring = isRecurring;
-    this.isComplete = isComplete;
-    this.isConfirmed = isConfirmed;
-	}
+      choreId=id;
+      this.choreName=choreName;
+      this.choreDescrption=choreDescription;
+      this.chorePayout=chorePayout;
+      this.dayOfWeek=dayOfWeek;
+      this.isRecurring = isRecurring;
+      this.isComplete = isComplete;
+      this.isConfirmed = isConfirmed;
 	
 	public void print(){
 		System.out.println("ChoreID: "+choreId+"choreName:"+choreName+"choreDescription: "+choreDescription
