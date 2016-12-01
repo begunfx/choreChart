@@ -6,21 +6,19 @@ import javax.ws.rs.core.*;
 import javax.persistence.*;
 
 @Path("/profile")
-public class ChoreApp {
+public class parentChoreApp {
 	
 	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("myapp");
 		
 		@GET
-		@Path("/{parentId}")
+		@Path("/{parentChore}")
 		@Produces({MediaType.APPLICATION_JSON})
-		public Parent getParent(@PathParam("parentId") int parentId){
+		public Chore getChore(@PathParam("choreId") int choreId){
 			EntityManager em = emf.createEntityManager();
-			Parent p = em.find(Parent.class, parentId);
-			int countChildren = p.getChildren().size(); // force a retrieve of lazy relationship of children
-			System.out.println(countChildren);
+			Chore c = em.find(Chore.class, choreId);
+			String choreDescription = em.createQuery("select c from chore c where choreID = " + choreId).getResultList();
 			em.close();
-			p.print();
-			return p;
+			return choreDescription;
 		}
 		
 		@GET
@@ -36,6 +34,36 @@ public class ChoreApp {
 			
 		}
 
+		@POST
+		@Consumes({MediaType.APPLICATION_JSON})
+		public Response createChore(){
+			System.out.println("createChore called.");
+			c.print();
+			// fix up bidirectional pointers for JPA
+			if (c.getChildren() != null) {
+				for (Child child: p.getChildren()){
+					child.verifyParent(p);
+				}
+			}
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			// insert or update Parent and Child objects to database.
+			em.merge(c);
+			em.getTransaction().commit();  // commit updates to database
+			em.close();
+			Response rc = Response.ok().build();
+			return rc;
+			
+			
+			
+			/*
+			 * INSERT INTO chore
+			 * VALUES (choreId, childId, choreName, choreDescription, chorePayout, 
+			 * dayOfWeek, isRecurring, isComplete, isConfirmedComplete);
+			 */
+		
+		
+		
 		@POST
 		@Consumes({MediaType.APPLICATION_JSON})
 		public Response updateParent(Parent p){
