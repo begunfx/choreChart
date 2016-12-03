@@ -16,7 +16,7 @@ public class ChoreApp {
 		public Parent getParent(@PathParam("parentId") int parentId){
 			EntityManager em = emf.createEntityManager();
 			Parent p = em.find(Parent.class, parentId);
-			int countChildren = p.getChildren().size(); // force a retrieve of lazy relationship of children
+			int countChildren = p.getChildren().size();  // force a retrieve of lazy relationship of children
 			System.out.println(countChildren);
 			em.close();
 			p.print();
@@ -33,7 +33,6 @@ public class ChoreApp {
 			// note:  the Parent object may not have the children attribute populated,  it might be null due to lazy loading by JPA.
 			em.close();
 			return alist;
-			
 		}
 
 		@POST
