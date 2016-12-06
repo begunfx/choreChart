@@ -5,7 +5,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.persistence.*;
 
-@Path("/profile")
+@Path("/parentChore")
 public class parentChoreApp {
 	
 	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("myapp");
